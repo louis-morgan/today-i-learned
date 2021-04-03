@@ -1,10 +1,13 @@
 import nookies from 'nookies'
+import {useContext} from 'react'
 import {verifyIdToken} from '../firebaseAdmin'
 import firebaseClient from '../firebaseClient'
 import firebase from 'firebase/app'
 import AddItem from '../components/AddItem/AddItem'
+import {AuthContext} from '../auth'
 function Authenticated({session}) {
     firebaseClient()
+    const {user} = useContext(AuthContext)
     if(session) {
         return(
             <div className="wrapper">

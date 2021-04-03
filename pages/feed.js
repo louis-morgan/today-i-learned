@@ -1,10 +1,14 @@
 import nookies from 'nookies'
+import {useContext} from 'react'
 import { verifyIdToken } from '../firebaseAdmin'
 import firebaseClient from '../firebaseClient'
 import firebase from 'firebase'
 import AddItem from '../components/AddItem/AddItem'
+import {AuthContext} from '../auth'
 function Feed({session}) {
     firebaseClient()
+    const db = firebase.firestore()
+    const {signOut} = useContext(AuthContext)
     if(session) {
         return(
             <div className="wrapper">
@@ -15,8 +19,8 @@ function Feed({session}) {
                 <AddItem />
                 <div className="field">
                     <button className="button" onClick={async () => {
-                        await firebase.auth().signOut();
-                        window.location.href = '/login'
+                        let res = await signOut()
+                        console.log(res);
                     }}>Sign Out</button>
                 </div>
             </div>

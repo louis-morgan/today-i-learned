@@ -1,15 +1,26 @@
-import {useContext} from 'react'
+import {useContext, useEffect} from 'react'
 import {AuthContext} from '../auth'
 import firebaseClient from '../firebaseClient'
-import firebase from 'firebase/app'
+import firebase from 'firebase'
 
 firebaseClient()
 const db = firebase.firestore();
 
 export default function someOtherPage(props) {
     const {user} = useContext(AuthContext)
-    console.log(user);
-    console.log(db);
+
+    // if(!user) return(null)
+
+    useEffect(() => {
+        db.collection('users').get().then((snapshot) => {
+            snapshot.forEach(doc => {
+                console.log(doc.data());
+            })
+        }).catch((err) => {
+            Router.push("/login");
+        })
+    }, [])
+    
 
     return(
         <pre>
@@ -21,7 +32,7 @@ export default function someOtherPage(props) {
                 }).then(() => {
                     // window.location.href = '/authenticated'
                     console.log('ran');
-                    // TODO - use Link or something to send to authenticated but with serverSideProps so we can send this data to firestore on the server?
+                    // TODO:20 - use Link or something to send to authenticated but with serverSideProps so we can send this data to firestore on the server?
                     // either way we need to know which ID is logged in in state somehow
                     // check next-todo and make a mutation in AuthContext to set this from here?
                 }).catch((err) => {

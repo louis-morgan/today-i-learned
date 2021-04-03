@@ -1,5 +1,5 @@
 import {useState, useEffect, useContext, createContext} from 'react'
-
+import { useRouter } from 'next/router'
 import nookies from 'nookies'
 
 import firebaseClient from './firebaseClient'
@@ -10,23 +10,44 @@ export const AuthContext = createContext({})
 
 export const AuthProvider = ({children}) => {
     firebaseClient()
-    // const db = firebase.firestore()
+    const db = firebase.firestore()
+    const router = useRouter()
 
-    async function createUser({cred, email}) {
-        return db.collection('users').doc(cred.uid).set({
+    const createUser = async ({cred, email}) => {
+        console.log(cred);
+        return await db.collection('users').doc(cred.uid).set({
             email,
         }).then(() => {
-            return true
-            // window.location.href = '/authenticated'
-            // TODO - use Link or something to send to authenticated but with serverSideProps so we can send this data to firestore on the server?
-            // either way we need to know which ID is logged in in state somehow
-            // check next-todo and make a mutation in AuthContext to set this from here?
+            router.push('/feed')
+        }).catch(err => {
+            return JSON.stringify(err)
         })
     }
 
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState(false)
+
+    const signOut = () => {
+        return firebase
+          .auth()
+          .signOut()
+          .then(() => {
+              setUser(false)
+              router.push('/login')
+            })
+
+      };
+
+    const signIn = async ({email, pass}) => {
+        await firebase.auth().signInWithEmailAndPassword(email, pass).then((cred) => {
+             cred.additionalUserInfo.isNewUser && createUser({cred, email})
+             router.push('/feed')
+        }).catch((err) => {
+            throw err
+        })
+    }
 
     useEffect(() => {
+        console.log('useEffect ran');
         return firebase.auth().onIdTokenChanged(async (user) => {
             if(!user) {
                 setUser(null)
@@ -39,7 +60,11 @@ export const AuthProvider = ({children}) => {
         })
     }, [])
 
-    return(<AuthContext.Provider value={{user}}>{children}</AuthContext.Provider>)
+    return(<AuthContext.Provider value={{user, signIn, signOut}}>{children}</AuthContext.Provider>)
 }
+
+export const useAuth = () => {
+    return useContext(authContext);
+  };
 
 // export const useAuth = useContext(AuthContext);
