@@ -2,10 +2,10 @@
     "compilerOptions": {
       "baseUrl": "./",
       "paths": {
-        "@components/*": ["src/components/*"],
-        "@context/*": ["src/context/*"],
-        "@hooks/*": ["src/hooks/*"],
-        "@util/*": ["src/util/*"],
+        "@components/*": ["components/*"],
+        "@context/*": ["context/*"],
+        "@hooks/*": ["hooks/*"],
+        "@util/*": ["util/*"],
         "@public/*": ["public/*"]
       }
     }

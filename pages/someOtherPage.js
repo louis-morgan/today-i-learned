@@ -7,7 +7,7 @@ firebaseClient()
 const db = firebase.firestore();
 
 export default function someOtherPage(props) {
-    const {user} = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
 
     // if(!user) return(null)
 
@@ -32,9 +32,9 @@ export default function someOtherPage(props) {
                 }).then(() => {
                     // window.location.href = '/authenticated'
                     console.log('ran');
-                    // TODO:20 - use Link or something to send to authenticated but with serverSideProps so we can send this data to firestore on the server?
+                    // DONE:5 - use Link or something to send to authenticated but with serverSideProps so we can send this data to firestore on the server?
                     // either way we need to know which ID is logged in in state somehow
-                    // check next-todo and make a mutation in AuthContext to set this from here?
+                    // check next-todo and make a mutation in AuthContext to set this from here? completed:2021-04-03T09:21:14.567Z
                 }).catch((err) => {
                     console.log(err);
                 })
