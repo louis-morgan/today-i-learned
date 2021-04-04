@@ -10,11 +10,10 @@ export const AuthContext = createContext({})
 
 export const AuthProvider = ({ children }) => {
     firebaseClient()
-    const db = firebase.firestore()
     const router = useRouter()
 
     const createUser = async ({ uid, email }) => {
-        return await db.collection('users').doc(uid).set({ email }, { merge: true })
+        // return await db.collection('users').doc(uid).set({ email }, { merge: true })
     }
 
     const [user, setUser] = useState(false)
@@ -43,7 +42,7 @@ export const AuthProvider = ({ children }) => {
             const response = await firebase.auth().createUserWithEmailAndPassword(email, pass)
             const uid = response.user.uid
             await response.user.getIdToken()
-            const dbResponse = await createUser({ uid, email })
+            // const dbResponse = await createUser({ uid, email })
         } catch (error) {
             // #TODO:5 - Add error handling UI
             console.log(error)
