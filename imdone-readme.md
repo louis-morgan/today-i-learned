@@ -7,7 +7,7 @@ description: |
   and [GatsbyJS](https://www.gatsbyjs.org/).  For a more complete list of static site generators visit [StaticGen | Top Open Source Static Site Generators](https://www.staticgen.com/).  
 ---
 
-## [Get started with imdone](#DONE:0)
+## [Get started with imdone](#DONE:0.01953125)
 ### Click on the green `getting-started` tag to filter your board for cards with the `getting-started` tag.
 1. Start here, then work through the cards in TODO
 2. Drag this card to DOING

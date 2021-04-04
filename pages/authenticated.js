@@ -46,7 +46,7 @@ export async function getServerSideProps(context) {
         context.res.writeHead(302, { location: '/login' })
         context.res.end()
         return {
-            props: [{}],
+            props: {},
         }
     }
 }

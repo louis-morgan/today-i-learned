@@ -10,19 +10,19 @@ export default function AddItem(props) {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
-        // db.collection('users')
-        //     .doc(user.uid)
-        //     .collection('posts')
-        //     .add({ title, description })
-        //     .then((docRef) => {
-        //         console.log('Document written with ID: ', docRef.id)
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error adding document: ', error)
-        //     })
-        setTitle('')
-        setDescription('')
+        try {
+            const res = await axios.post('api/posts/create', {
+                userId: user.uid,
+                title,
+                description,
+            })
+            console.log(res)
+            setTitle('')
+            setDescription('')
+        } catch (err) {
+            console.log(err)
+            alert('Oops! Something went wrong!')
+        }
     }
 
     return (

@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext, createContext } from 'react'
 import { useRouter } from 'next/router'
+import axios from 'axios'
 import nookies from 'nookies'
 
 import firebaseClient from './firebaseClient'
@@ -13,7 +14,8 @@ export const AuthProvider = ({ children }) => {
     const router = useRouter()
 
     const createUser = async ({ uid, email }) => {
-        // return await db.collection('users').doc(uid).set({ email }, { merge: true })
+        const res = await axios.post('api/users/register', { uid, email })
+        return res
     }
 
     const [user, setUser] = useState(false)
@@ -29,7 +31,7 @@ export const AuthProvider = ({ children }) => {
             .auth()
             .signInWithEmailAndPassword(email, pass)
             .then((cred) => {
-                router.push('/feed')
+                router.push('/profile')
             })
             .catch((err) => {
                 console.log(err)
@@ -42,7 +44,7 @@ export const AuthProvider = ({ children }) => {
             const response = await firebase.auth().createUserWithEmailAndPassword(email, pass)
             const uid = response.user.uid
             await response.user.getIdToken()
-            // const dbResponse = await createUser({ uid, email })
+            const dbResponse = await createUser({ uid, email })
         } catch (error) {
             // #TODO:5 - Add error handling UI
             console.log(error)
@@ -60,6 +62,7 @@ export const AuthProvider = ({ children }) => {
             }
             const token = await user.getIdToken()
             setUser(user)
+            console.log(user)
             nookies.set(undefined, 'token', token, {})
         })
     }, [])
