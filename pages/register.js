@@ -10,7 +10,7 @@ export default function Login({ initialError }) {
     const [error, setError] = useState(
         initialError?.code == 'auth/argument-error' ? null : initialError
     )
-    const { user, signIn } = useContext(AuthContext)
+    const { user, signUp } = useContext(AuthContext)
 
     return (
         <Container className="w-50 d-flex flex-column min-vh-100 justify-content-center align-items-center">
@@ -41,16 +41,17 @@ export default function Login({ initialError }) {
                     disabled={email === '' || pass === ''}
                     onClick={async () => {
                         try {
-                            await signIn({ email, pass })
+                            await signUp({ email, pass })
                         } catch (err) {
                             setError(err)
                         }
                     }}>
-                    Login
+                    Create Account
                 </Button>
-                <Link href="/register" passHref>
+
+                <Link href="/login" passHref>
                     <Button variant="link" size="sm" block className="text-center">
-                        Create Account
+                        Login
                     </Button>
                 </Link>
             </Form>

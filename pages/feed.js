@@ -1,42 +1,54 @@
+// Server
 import nookies from 'nookies'
-import { useContext } from 'react'
 import { verifyIdToken } from '../firebaseAdmin'
-import AddItem from '../components/AddItem'
+import { getFeed } from './api/posts/posts'
+
+// Client
+import { useContext } from 'react'
 import { AuthContext } from '../auth'
+import router from 'next/router'
+import Head from 'next/head'
+import { Container } from 'react-bootstrap'
+import AddItem from '../components/AddItem'
+import Navigation from '../components/Navigation'
+
 function Feed({ session }) {
-    const { signOut } = useContext(AuthContext)
-    if (session) {
-        return (
-            <div className="wrapper">
-                <div className="field">You are authenticated</div>
-                <div>{session}</div>
-                <AddItem />
-                <div className="field">
-                    <button
-                        className="button"
-                        onClick={async () => {
-                            let res = await signOut()
-                            console.log(res)
-                        }}>
-                        Sign Out
-                    </button>
-                </div>
-            </div>
-        )
-    } else {
-        return <div className="wrapper">Loading...</div>
-    }
+    const { user, signOut } = useContext(AuthContext)
+
+    return (
+        <>
+            <Head>
+                <title>Today I Learned</title>
+                <link rel="icon" href="/favicon.ico" />
+                <meta charSet="utf-8" />
+            </Head>
+            <main>
+                <Navigation />
+                <Container>
+                    {user && (
+                        <>
+                            <AddItem />
+                        </>
+                    )}
+                    {!user && <Container>Loading...</Container>}
+                </Container>
+            </main>
+        </>
+    )
 }
 
 export async function getServerSideProps(context) {
     try {
         const cookies = nookies.get(context)
         const token = await verifyIdToken(cookies.token)
-        const { uid, email } = token
+        const { uid } = token
+        let response = await getFeed()
+        console.log(response)
 
         return {
             props: {
-                session: `Your email is ${email} and your UID is ${uid}`,
+                session: uid,
+                posts: response,
             },
         }
     } catch (err) {
@@ -44,7 +56,9 @@ export async function getServerSideProps(context) {
         context.res.writeHead(302, { location: '/login' })
         context.res.end()
         return {
-            props: [{}],
+            props: {
+                error: err,
+            },
         }
     }
 }

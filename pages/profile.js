@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { AuthContext } from '../auth'
 import isLoggedIn from '../utils/isLoggedIn'
-import { getPosts } from './api/posts/posts'
+import { getPostsWithId } from './api/posts/posts'
 
 export default function Profile({ posts, session }) {
     const { user } = useContext(AuthContext)
@@ -30,7 +30,7 @@ export default function Profile({ posts, session }) {
 export async function getServerSideProps(context) {
     try {
         let uid = await isLoggedIn(context, true)
-        let response = await getPosts(uid)
+        let response = await getPostsWithId(uid)
         return {
             props: {
                 session: uid,

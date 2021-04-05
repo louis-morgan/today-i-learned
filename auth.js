@@ -14,8 +14,11 @@ export const AuthProvider = ({ children }) => {
     const router = useRouter()
 
     const createUser = async ({ uid, email }) => {
-        const res = await axios.post('api/users/register', { uid, email })
-        return res
+        try {
+            return await axios.post('api/users/register', { uid, email })
+        } catch (err) {
+            throw err
+        }
     }
 
     const [user, setUser] = useState(false)
@@ -34,7 +37,7 @@ export const AuthProvider = ({ children }) => {
                 router.push('/profile')
             })
             .catch((err) => {
-                console.log(err)
+                throw err
             })
     }
 
@@ -44,11 +47,11 @@ export const AuthProvider = ({ children }) => {
             const response = await firebase.auth().createUserWithEmailAndPassword(email, pass)
             const uid = response.user.uid
             await response.user.getIdToken()
-            const dbResponse = await createUser({ uid, email })
+            await createUser({ uid, email })
+            router.push('/feed')
         } catch (error) {
-            // #TODO:5 - Add error handling UI
-            console.log(error)
-            alert('Oops! Something went wrong!')
+            // #DOING:5 - Add error handling UI
+            throw error
         }
     }
 

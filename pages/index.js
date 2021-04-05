@@ -1,11 +1,8 @@
 import Head from 'next/head'
-import AddItem from '../components/AddItem'
-import Header from '../components/Header'
-// import ItemsList from '../components/ItemsList/ItemsList'
 import { useState, useContext } from 'react'
 import Link from 'next/link'
 import { AuthContext } from '../auth'
-
+import Navigation from '@components/Navigation'
 export default function Home() {
     // const {user} = useAuth()
     const { user } = useContext(AuthContext)
@@ -21,25 +18,11 @@ export default function Home() {
     return (
         <div>
             <Head>
-                <title>Create Next App</title>
+                <title>Today I Learned</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main>
-                <Header />
-                <div>{`User ID: ${user ? user.uid : 'No user siged in'}`}</div>
-                <div className="field">
-                    <button className="button" disabled={user}>
-                        <Link href="/authenticated">Go to authenticated route</Link>
-                    </button>
-                    <button className="button" disabled={!user}>
-                        <Link href="/login">Login</Link>
-                    </button>
-                </div>
-                {/* <AddItem addItem={addItem} />
-        <div className="wrapper">
-          <hr className="line"/>
-        </div>
-        <ItemsList items={items} /> */}
+                <Navigation />
             </main>
         </div>
     )
