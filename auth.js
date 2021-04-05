@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext, createContext } from 'react'
 import { useRouter } from 'next/router'
+import axios from 'axios'
 import nookies from 'nookies'
 
 import firebaseClient from './firebaseClient'
@@ -10,11 +11,11 @@ export const AuthContext = createContext({})
 
 export const AuthProvider = ({ children }) => {
     firebaseClient()
-    const db = firebase.firestore()
     const router = useRouter()
 
     const createUser = async ({ uid, email }) => {
-        return await db.collection('users').doc(uid).set({ email }, { merge: true })
+        const res = await axios.post('api/users/register', { uid, email })
+        return res
     }
 
     const [user, setUser] = useState(false)
@@ -30,7 +31,7 @@ export const AuthProvider = ({ children }) => {
             .auth()
             .signInWithEmailAndPassword(email, pass)
             .then((cred) => {
-                router.push('/feed')
+                router.push('/profile')
             })
             .catch((err) => {
                 console.log(err)

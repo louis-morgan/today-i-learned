@@ -1,11 +1,11 @@
 import { useState, useContext } from 'react'
-import firebaseClient from '../firebaseClient'
+// import firebaseClient from '../firebaseClient'
 import { AuthContext } from '../auth'
-import firebase from 'firebase'
-import 'firebase/auth'
+// import firebase from 'firebase'
+// import 'firebase/auth'
 
-firebaseClient()
-const db = firebase.firestore()
+// firebaseClient()
+// const db = firebase.firestore()
 
 export default function Login(props) {
     const [email, setEmail] = useState('')
@@ -55,3 +55,5 @@ export default function Login(props) {
         </form>
     )
 }
+
+// #TODO:15 ## check if logged in and redirect on load completed:2021-04-04T10:21:23.898Z

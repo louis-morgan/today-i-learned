@@ -1,13 +1,7 @@
 import { useState, useContext } from 'react'
 import { AuthContext } from '../../auth'
 import styles from './AddItem.module.scss'
-import firebaseClient from '../../firebaseClient'
-import firebase from 'firebase'
 import axios from 'axios'
-import 'firebase/auth'
-
-firebaseClient()
-const db = firebase.firestore()
 
 export default function AddItem(props) {
     const { user } = useContext(AuthContext)
@@ -16,19 +10,19 @@ export default function AddItem(props) {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
-        db.collection('users')
-            .doc(user.uid)
-            .collection('posts')
-            .add({ title, description })
-            .then((docRef) => {
-                console.log('Document written with ID: ', docRef.id)
+        try {
+            const res = await axios.post('api/posts/create', {
+                userId: user.uid,
+                title,
+                description,
             })
-            .catch((error) => {
-                console.error('Error adding document: ', error)
-            })
-        setTitle('')
-        setDescription('')
+            console.log(res)
+            setTitle('')
+            setDescription('')
+        } catch (err) {
+            console.log(err)
+            alert('Oops! Something went wrong!')
+        }
     }
 
     return (
