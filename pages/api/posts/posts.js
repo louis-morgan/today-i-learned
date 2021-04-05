@@ -6,25 +6,22 @@ export default async function handler(req, res) {
 }
 
 export async function getPosts(uid) {
-    const { db } = await connectToDatabase()
-    const response = await db
-        .collection('posts')
-        .find({ userId: '9BsyK4W6kUNViupnow4m2oA4BLp1' })
-        .toArray()
-
-    console.log(response)
-
-    let newArray = response.map((post) => {
-        console.log(post)
-        return {
-            _id: `${post._id}`,
-            title: post.title,
-            description: post.description,
-            userId: post.userId,
-        }
-    })
-
-    console.log(response)
-
-    return newArray
+    try {
+        const { db } = await connectToDatabase()
+        let response = await db
+            .collection('posts')
+            .find({ userId: '9BsyK4Wiupnow4m2oA4BLp1' })
+            .toArray()
+        response = response.map((post) => {
+            return {
+                _id: `${post._id}`,
+                title: post.title,
+                description: post.description,
+                userId: post.userId,
+            }
+        })
+        return response
+    } catch (err) {
+        throw err
+    }
 }

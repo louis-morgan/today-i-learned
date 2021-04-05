@@ -8,6 +8,6 @@ export default async function isLoggedIn(context) {
         const { uid } = token
         return { uid }
     } catch (err) {
-        return err
+        throw err?.errorInfo
     }
 }
