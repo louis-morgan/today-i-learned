@@ -25,13 +25,11 @@ export async function getFeed() {
     }
 }
 
-export async function getPostsWithId(uid) {
+export async function getPostsWithId({ uid }) {
     try {
         const { db } = await connectToDatabase()
-        let response = await db
-            .collection('posts')
-            .find({ userId: '9BsyK4W6kUNViupnow4m2oA4BLp1' })
-            .toArray()
+        let response = await db.collection('posts').find({ userId: uid }).toArray()
+        console.log(uid)
         response = response.map((post) => {
             return {
                 _id: `${post._id}`,

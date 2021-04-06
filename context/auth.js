@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import nookies from 'nookies'
 
-import firebaseClient from './firebaseClient'
+import firebaseClient from '../firebaseClient'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
