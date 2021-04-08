@@ -1,6 +1,11 @@
 const admin = require('firebase-admin')
 const serviceAccount = require('./secrets.json')
 
+serviceAccount.private_key = process.env.AUTH_PRIVATE_KEY
+serviceAccount.private_key_id = process.env.AUTH_PRIVATE_KEY_ID
+
+console.log(process.env.AUTH_PRIVATE_KEY_ID)
+
 export const verifyIdToken = (token) => {
     if (!admin.apps.length) {
         admin.initializeApp({
