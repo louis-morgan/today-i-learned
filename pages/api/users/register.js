@@ -27,7 +27,7 @@ export default async function handler(req, res) {
                 },
             })
             res.json(response)
-        } catch(err) => {
+        } catch (err) {
             res.status(400).json(err)
         }
     }
