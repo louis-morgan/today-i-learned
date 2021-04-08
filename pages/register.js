@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { AuthContext } from '../context/auth'
+import { AuthContext } from '../context/auth.js'
 import isLoggedIn from '../utils/isLoggedIn'
 import Link from 'next/link'
 import { Form, Button, Container, Alert } from 'react-bootstrap'

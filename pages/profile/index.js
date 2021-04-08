@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { AuthContext } from '../../context/auth'
+import { AuthContext } from '../../context/auth.js'
 import { ProfileContext } from '../../context/profile'
 import Head from 'next/head'
 import { Container, Row, Col } from 'react-bootstrap'

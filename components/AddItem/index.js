@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { AuthContext } from '../../context/auth'
+import { AuthContext } from '../../context/auth.js'
 import { Card, Button, Form, Modal, Tabs, Tab } from 'react-bootstrap'
 import MarkdownIt from 'markdown-it'
 import { ProfileContext } from '../../context/profile'

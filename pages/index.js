@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { useState, useContext } from 'react'
 import Link from 'next/link'
-import { AuthContext } from '../context/auth'
+import { AuthContext } from '../context/auth.js'
 import Navigation from '@components/Navigation'
 export default function Home() {
     // const {user} = useAuth()

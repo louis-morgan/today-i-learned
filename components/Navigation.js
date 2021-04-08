@@ -1,7 +1,7 @@
 import { Navbar, Nav, NavDropdown, Button, Container } from 'react-bootstrap'
 import Link from 'next/link'
 import { useContext } from 'react'
-import { AuthContext } from '../context/auth'
+import { AuthContext } from '../context/auth.js'
 import router from 'next/router'
 import Logo from './Logo'
 export default function Navigation(props) {

@@ -5,7 +5,7 @@ import { getFeed } from './api/posts/posts'
 
 // Client
 import { useContext } from 'react'
-import { AuthContext } from '../context/auth'
+import { AuthContext } from '../context/auth.js'
 import router from 'next/router'
 import Head from 'next/head'
 import { Container } from 'react-bootstrap'

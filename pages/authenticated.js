@@ -4,7 +4,7 @@ import { verifyIdToken } from '../firebaseAdmin'
 import firebaseClient from '../firebaseClient'
 import firebase from 'firebase/app'
 import AddItem from '../components/AddItem'
-import { AuthContext } from '../auth'
+import { AuthContext } from '../context/auth.js'
 function Authenticated({ session }) {
     firebaseClient()
     const { user } = useContext(AuthContext)
