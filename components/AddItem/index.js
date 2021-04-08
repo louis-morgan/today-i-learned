@@ -1,8 +1,6 @@
 import { useState, useContext } from 'react'
 import { AuthContext } from '../../context/auth'
 import { Card, Button, Form, Modal, Tabs, Tab } from 'react-bootstrap'
-import styles from './AddItem.module.scss'
-import axios from 'axios'
 import MarkdownIt from 'markdown-it'
 import { ProfileContext } from '../../context/profile'
 var HtmlToReactParser = require('html-to-react').Parser
