@@ -11,9 +11,7 @@ export const ProfileProvider = ({ children }) => {
         try {
             await axios.post('api/posts/create', post)
             let freshPosts = await axios.get(`api/posts/${user.uid}`)
-            console.log('add post ran')
             setPosts(freshPosts)
-            console.log(res)
         } catch (err) {
             console.log(err)
             throw err

@@ -8,6 +8,7 @@ export default async function isLoggedIn(context) {
         const { uid } = token
         return { uid }
     } catch (err) {
+        // console.log(err)
         throw err?.errorInfo
     }
 }

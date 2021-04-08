@@ -90,7 +90,7 @@ export default function AddItem(props) {
                                             }
                                             variant="link"
                                             className="text-danger">
-                                            Discard
+                                            {description == '' ? 'Close' : 'Discard'}
                                         </Button>
                                     </>
                                 )}

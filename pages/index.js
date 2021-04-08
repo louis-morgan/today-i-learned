@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { useState, useContext } from 'react'
 import Link from 'next/link'
-import { AuthContext } from '../auth'
+import { AuthContext } from '../context/auth'
 import Navigation from '@components/Navigation'
 export default function Home() {
     // const {user} = useAuth()
@@ -21,9 +21,7 @@ export default function Home() {
                 <title>Today I Learned</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <main>
-                <Navigation />
-            </main>
+            <main></main>
         </div>
     )
 }

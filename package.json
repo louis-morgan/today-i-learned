@@ -21,6 +21,7 @@
     "nookies": "^2.5.2",
     "react": "17.0.1",
     "react-bootstrap": "^1.5.2",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "react-social-icons": "^5.1.0"
   }
 }

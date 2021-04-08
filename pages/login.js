@@ -62,7 +62,7 @@ export default function Login({ initialError }) {
 
 export async function getServerSideProps(context) {
     try {
-        let uid = await isLoggedIn(context, true)
+        let uid = await isLoggedIn(context)
         context.res.writeHead(302, { location: '/feed' })
         context.res.end()
         return {

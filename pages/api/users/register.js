@@ -10,6 +10,16 @@ export default async function handler(req, res) {
         const response = await db.collection('users').insertOne({
             _id: req.body.uid,
             email: req.body.email,
+            displayName: '',
+            profilePhotoUrl: '',
+            socials: {
+                twitter: '',
+                devto: '',
+                youtube: '',
+                github: '',
+                medium: '',
+                linkedIn: '',
+            },
         })
         res.json(response)
     }

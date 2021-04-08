@@ -5,15 +5,21 @@ import '../styles/globals.scss'
 import { useRouter } from 'next/router'
 import { AuthProvider } from '../context/auth'
 import { ProfileProvider } from '../context/profile'
-
+import Layout from '@components/Layout'
 function MyApp({ Component, pageProps }) {
     const router = useRouter()
     return (
         <AuthProvider>
-            {router.route == '/profile' && (
+            {router.route.includes('profile') ? (
                 <ProfileProvider>
-                    <Component {...pageProps} />
+                    <Layout>
+                        <Component {...pageProps} />
+                    </Layout>
                 </ProfileProvider>
+            ) : (
+                <Layout>
+                    <Component {...pageProps} />
+                </Layout>
             )}
         </AuthProvider>
     )

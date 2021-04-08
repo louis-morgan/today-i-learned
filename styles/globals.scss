@@ -1,1 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
+.social-icon {
+    height: 38px !important;
+    width: 38px !important;
+    background-color: var(--light);
+    border: 1px solid #ced4da;
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+    &.social-icon--center .social-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+    }
+    svg {
+        position: relative !important;
+        height: 25px !important;
+        width: 25px !important;
+    }
+}

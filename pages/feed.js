@@ -5,7 +5,7 @@ import { getFeed } from './api/posts/posts'
 
 // Client
 import { useContext } from 'react'
-import { AuthContext } from '../auth'
+import { AuthContext } from '../context/auth'
 import router from 'next/router'
 import Head from 'next/head'
 import { Container } from 'react-bootstrap'
@@ -18,12 +18,9 @@ function Feed({ session }) {
     return (
         <>
             <Head>
-                <title>Today I Learned</title>
-                <link rel="icon" href="/favicon.ico" />
-                <meta charSet="utf-8" />
+                <title key="title">Feed</title>
             </Head>
             <main>
-                <Navigation />
                 <Container>
                     {user && (
                         <>
@@ -53,7 +50,7 @@ export async function getServerSideProps(context) {
         }
     } catch (err) {
         console.log(err)
-        context.res.writeHead(302, { location: '/login' })
+        // context.res.writeHead(302, { location: '/login' })
         context.res.end()
         return {
             props: {

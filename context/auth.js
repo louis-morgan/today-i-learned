@@ -10,8 +10,10 @@ import 'firebase/auth'
 export const AuthContext = createContext({})
 
 export const AuthProvider = ({ children }) => {
+    axios.defaults.baseURL = '/'
     firebaseClient()
     const router = useRouter()
+    const [loading, setLoading] = useState(true)
 
     const createUser = async ({ uid, email }) => {
         try {
@@ -55,22 +57,33 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    const updateUser = async (newUser) => {
+        // console.log(newUser)
+        try {
+            return await axios.post('api/users/update', newUser)
+        } catch (err) {
+            throw err
+        }
+    }
+
     useEffect(() => {
         console.log('useEffect ran')
         return firebase.auth().onIdTokenChanged(async (user) => {
             if (!user) {
+                // !loading && setLoading(true)
                 setUser(null)
                 nookies.set(undefined, 'token', '', {})
                 return
             }
             const token = await user.getIdToken()
             setUser(user)
+            // loading && setLoading(false)
             nookies.set(undefined, 'token', token, {})
         })
     }, [])
 
     return (
-        <AuthContext.Provider value={{ user, signIn, signOut, signUp }}>
+        <AuthContext.Provider value={{ user, signIn, signOut, signUp, loading, updateUser }}>
             {children}
         </AuthContext.Provider>
     )

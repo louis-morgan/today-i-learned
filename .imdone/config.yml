@@ -32,14 +32,14 @@ lists:
     id: 1
     name: Recently Completed
 settings:
-  openIn: code
-  editorTheme: blackboard
   journalType: New File
   journalPath: kanban
   taskPrefix: ''
   maxLines: 6
   addNewCardsToTop: true
   newCardSyntax: HASHTAG
+  openIn: code
+  editorTheme: blackboard
   replaceSpacesWith: '-'
   cards:
     colors: []
