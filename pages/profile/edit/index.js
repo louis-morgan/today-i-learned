@@ -3,7 +3,7 @@ import isLoggedIn from '../../../utils/isLoggedIn'
 import { getUserWithId } from '@api/users/[id]'
 import Head from 'next/head'
 import { Container, Row, Col, Tab, Nav, Card, Form, InputGroup, Button } from 'react-bootstrap'
-import { AuthContext } from '@context/auth'
+import { AuthContext } from '../../../context/auth'
 import { SocialIcon } from 'react-social-icons'
 
 export default function Edit({ userInfo }) {
