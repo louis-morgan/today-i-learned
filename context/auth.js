@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
 
     const createUser = async ({ uid, email }) => {
         try {
-            return await axios.post('api/users/register', { uid, email })
+            return await axios.post('api/users/register', { uid, email, username })
         } catch (err) {
             throw err
         }
@@ -44,12 +44,12 @@ export const AuthProvider = ({ children }) => {
     }
 
     // #DONE:10 See if we can reduce this to just using async await rather than .thens completed:2021-04-03T09:21:08.434Z
-    const signUp = async ({ email, pass }) => {
+    const signUp = async ({ email, pass, username }) => {
         try {
             const response = await firebase.auth().createUserWithEmailAndPassword(email, pass)
             const uid = response.user.uid
             await response.user.getIdToken()
-            await createUser({ uid, email })
+            await axios.post('api/users/register', { uid, email, username })
             router.push('/feed')
         } catch (error) {
             // #DOING:5 - Add error handling UI

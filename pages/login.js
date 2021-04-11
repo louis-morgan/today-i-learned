@@ -16,7 +16,7 @@ export default function Login({ initialError }) {
     return (
         <Container className="w-50 d-flex flex-column min-vh-100 justify-content-center align-items-center">
             <Form className="w-100" onSubmit={(e) => e.preventDefault()}>
-                <Logo />
+                <h2 className="text-center mb-10">Login</h2>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Control
                         type="email"

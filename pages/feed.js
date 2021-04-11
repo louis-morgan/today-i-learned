@@ -4,7 +4,7 @@ import redirectToLogin from '../utils/redirectToLogin'
 import { getAllPosts } from './api/posts/allPosts.js'
 import { QueryClient, useQuery } from 'react-query'
 import { dehydrate } from 'react-query/hydration'
-
+// import { verifyIdToken } from '../firebaseAdmin'
 // Client
 import { useContext } from 'react'
 import { AuthContext } from '../context/auth.js'
