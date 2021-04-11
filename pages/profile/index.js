@@ -48,7 +48,6 @@ export default function Profile({ initialPosts, session }) {
 export async function getServerSideProps(context) {
     try {
         let { uid } = await isLoggedIn(context, true)
-        console.log(uid)
         let response = await getPostsWithId(uid)
         return {
             props: {

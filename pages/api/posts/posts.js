@@ -10,7 +10,7 @@ export async function getFeed() {
     try {
         const { db } = await connectToDatabase()
         let response = await db.collection('posts').find({}).toArray()
-        console.log(response)
+        // console.log(response)
         response = response.map((post) => {
             return {
                 _id: `${post._id}`,

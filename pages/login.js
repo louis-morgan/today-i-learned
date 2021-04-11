@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react'
 import { AuthContext } from '../context/auth.js'
+import nookies from 'nookies'
 import isLoggedIn from '../utils/isLoggedIn'
 import Link from 'next/link'
 import { Form, Button, Container, Alert } from 'react-bootstrap'
@@ -61,21 +62,15 @@ export default function Login({ initialError }) {
 // #DOING:15 ## check if logged in and redirect on load completed:2021-04-04T10:21:23.898Z
 
 export async function getServerSideProps(context) {
-    try {
-        let uid = await isLoggedIn(context)
+    // const cookies = nookies.get(context)
+
+    const { uid } = await isLoggedIn(context)
+    if (uid) {
         context.res.writeHead(302, { location: '/feed' })
         context.res.end()
+    } else {
         return {
-            props: {
-                session: uid,
-            },
-        }
-    } catch (err) {
-        // token not provided to firebase
-        return {
-            props: {
-                error: err,
-            },
+            props: {},
         }
     }
 }

@@ -1,7 +1,9 @@
 // Server
-import nookies from 'nookies'
-import { verifyIdToken } from '../firebaseAdmin'
-import { getFeed } from './api/posts/posts'
+import isLoggedIn from '../utils/isLoggedIn'
+import redirectToLogin from '../utils/redirectToLogin'
+import { getAllPosts } from './api/posts/allPosts.js'
+import { QueryClient, useQuery } from 'react-query'
+import { dehydrate } from 'react-query/hydration'
 
 // Client
 import { useContext } from 'react'
@@ -10,10 +12,15 @@ import router from 'next/router'
 import Head from 'next/head'
 import { Container } from 'react-bootstrap'
 import AddItem from '../components/AddItem'
-import Navigation from '../components/Navigation'
+import axios from 'axios'
+import PostCard from '@components/PostCard'
 
 function Feed({ session }) {
-    const { user, signOut } = useContext(AuthContext)
+    const getAllPosts = () => {
+        axios.get('api/posts/allPosts')
+    }
+    const { user } = useContext(AuthContext)
+    const { data } = useQuery('posts', () => axios.get('api/posts/allPosts'))
 
     return (
         <>
@@ -25,6 +32,10 @@ function Feed({ session }) {
                     {user && (
                         <>
                             <AddItem />
+                            {data.data &&
+                                data.data.map((post) => {
+                                    return <PostCard key={post._id} post={post} />
+                                })}
                         </>
                     )}
                     {!user && <Container>Loading...</Container>}
@@ -35,28 +46,19 @@ function Feed({ session }) {
 }
 
 export async function getServerSideProps(context) {
-    try {
-        const cookies = nookies.get(context)
-        const token = await verifyIdToken(cookies.token)
-        const { uid } = token
-        let response = await getFeed()
-        console.log(response)
-
+    const { uid } = await isLoggedIn(context)
+    if (uid) {
+        const queryClient = new QueryClient()
+        await queryClient.prefetchQuery('posts', getAllPosts)
         return {
             props: {
+                dehydratedState: dehydrate(queryClient),
                 session: uid,
-                posts: response,
+                // posts: response,
             },
         }
-    } catch (err) {
-        console.log(err)
-        // context.res.writeHead(302, { location: '/login' })
-        context.res.end()
-        return {
-            props: {
-                error: err,
-            },
-        }
+    } else {
+        redirectToLogin(context)
     }
 }
 

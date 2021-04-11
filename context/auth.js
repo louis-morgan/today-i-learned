@@ -76,6 +76,7 @@ export const AuthProvider = ({ children }) => {
                 return
             }
             const token = await user.getIdToken()
+            console.log(user)
             setUser(user)
             // loading && setLoading(false)
             nookies.set(undefined, 'token', token, {})
